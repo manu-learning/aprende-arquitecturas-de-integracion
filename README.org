@@ -1,0 +1,4 @@
+#+TITLE: Aprende Arquitecturas de Integración
+#+NAME: fun-backups
+#+ATTR_HTML: :width 400px
+[[file:assets/images/picture-fun-backup.png]]
