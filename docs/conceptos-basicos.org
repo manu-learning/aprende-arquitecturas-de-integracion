@@ -1,0 +1,136 @@
+#+TITLE: Conceptos Básicos
+* Intro
+   #+BEGIN_QUOTE
+   Un *Sistema Distribuido* requiere de un *Middleware* que actúe como puente para la comunicación entre los componentes/servicios de dicho Sistema,
+   los *Sistemas/Agentes de Mensajería* son un tipo *Middleware* pero *Orientado a Mensajes* (MOM) para la *comunicación distribuida*,
+   un *Middleware Orientado a Mensajes* (MOM) puede implementar el modelo *Publish/Subscribe*
+
+   El modelo *Publish/Subscribe* es una extensión del *Patrón de Diseño Observer*,
+   que implementa un *canal Publish/Subscribe* (canal virtual) en el cual
+   1) el *Editor* publica un Mensaje ó un Evento
+   2) cuando el Mensaje/Evento ingresa al Canal éste se *propaga* a todos los *Suscriptores* (concepto de broadcast)
+   3) es el (MOM) *Middleware Orientado a Mensajes* quien transmite/entrega una copia del Mensaje ó propaga el Evento
+   4) los *Suscriptores* reciben automáticamente el Evento (deciden como manejarlo) ó la copia del Mensaje
+
+   El modelo *Publish/Subscribe basado en tópicos* es una extensión del modelo *Pub/Sub*,
+   agregando a la implementación que los participantes puedan
+   1) publicar eventos
+   2) subscribirse a múltiples identificados mediante *palabras clave* (keywords)
+
+   El Sistema/Agente de Mensajería (MOM) tiene la responsabilidad de transmitir los *eventos ó mensajes publicados* que ingresan en un *Canal Publish/Subscribe*,
+   pero sólo a los Suscriptores que previamente se suscribieron/registraron a ese Canal (que interpretarlo como un grupo de comunicación)
+   #+END_QUOTE
+* Integración Empresarial
+** Integración de Aplicaciones Empresariales (EAI, Enterprise Application Integration)
+   - estrategia para *integrar sistemas distribuidos* (interoperabilidad entre aplicaciones empresariales)
+   - define protocolos para la interacción entre sistemas
+** Patrones de Integración Empresarial (EIP, Enterprise Integration Pattern)
+   - Formas estandarizadas para integrar aplicaciones "a través de mensajes"
+   - Derivan a causa de la aparición del incremento de Sistemas Distribuidos más complejos
+   - NO dependen de una tecnología determinada
+   - enfocados en patrones de mensajería para la *(EAI) Integración de Aplicaciones Empresariales*
+** Servicios de Mensajería
+   - Manera en que se comunican distintas aplicaciones distribuidas
+   - Envían/Reciben mensajes en diferentes lenguajes, siempre que cada extremo de la comunicación entienda
+     1) el formato del mensaje
+     2) el protocolo de mensajería
+** Tipos de Integración
+   - Integración de aplicaciones
+   - Integración de datos
+   - Integración de procesos
+   - Integración de dispositivos
+** Referencias
+   #+BEGIN_COMMENT
+   Pendientes en validar
+   1. https://www.youtube.com/playlist?list=PLFHx3afTdaY0KR3h_NVjoWajr2OLRiqPv
+   1. https://www.cybermedian.com/es/enterprise-integration-patterns-eip-tutorial/
+   #+END_COMMENT
+* Sistemas Distribuidos
+  - requieren de un *Middleware* que actúe como puente para la comunicación entre sus componentes/servicios
+  - los componentes del sistema trabajan
+    1) *distribuidos físicamente* en
+       - distintas *plataformas* (donde construimos la aplicación con un lenguaje de programación determinado, Java, .NET, ...)
+       - distintos *entornos* (manejamos la infraestructura, elegimos el SO, la plataforma, etc, es más complejo)
+    2) conectados en red
+    3) comunicados y coordinanos sólo mediante el *paso de mensajes*
+    4) de forma independiente (/lo hace tolerante a fallos, si alguno falla no afecta al resto de los componentes/)
+    5) concurrentemente (/usando estrategias que mantengan la integridad de la información/)
+* Middleware
+** Conceptos
+   - Cualquier software ó hardware que haga de mediador de otro software ó hardware
+   - Un *Sistema de Middleware* facilita y gestiona la *integración entre aplicaciones* a través de una plataforma
+** Lógica de Comunicación
+*** Canal de Comunicación
+    - desarrollo del código que crea el canal
+    - manejo de errores ó fallas de comunicación en el canal
+*** Protocolo de Comunicación
+    - elegir ó desarrollar un protocolo
+    - especifica COMO se realizará el intercambio de información
+*** Formato de datos
+    - un formato que sea entendido por el emisor y receptor
+** Ejemplos
+*** Ejemplo 1 - Middleware a nivel de Aplicaciones (software)
+    #+BEGIN_QUOTE
+    Un ejemplo sería un (ORM) *Mapeo Objeto-Relacional* actúa como mediador
+    - entre los objetos de una Aplicación y las entidades de una (RDBMS) Base de Datos Relacional
+    - el ORM mapea/transforma los objetos de la aplicación a un formato que luego se persiste en la (RDBMS)
+    - nos evitamos de generar código (SQL) *Lenguaje de Consulta Estructurada* para las operaciones (CRUD) con la (RDBMS) porque el (ORM) lo hace por nosotros
+    #+END_QUOTE
+*** Ejemplo 2 - Middleware a nivel de Redes ó Hardware
+    #+BEGIN_QUOTE
+    Un ejemplo sería una topología de red en estrella dónde el HUB (conmutador) actúa de agente mediador
+    - el HUB es el Nodo Central que conecta el resto de los Nodos de la red
+    - los nodos de la red se comunican a través del HUB (conmutador)
+
+    Otro ejemplo sería un Enrutador (router) también hace de agente mediador para conectar varias máquinas y crear una Red Local
+    #+END_QUOTE
+*** Ejemplo 3 - Middleware a nivel de Sistemas Operativos (software)
+    #+BEGIN_QUOTE
+    Un ejemplo sería un *Sistema Operativo* porque hace de agente mediador entre los procesos
+    - el (SO) es el primer Proceso padre ó bien el Proceso Principal
+    - el resto de los procesos se comunican mediante alguna estrategias de comunicación que ofrece el (SO) por ej. el *paso de mensajes* ó *compartir memoria*
+
+    Otro ejemplo sería un Motor de Base de Datos Relacional (porque en si es casi como un Sistema Operativo)
+
+    Un ejemplo más es un *Data Warehouse*, se comporta como agente mediador
+    - entre las *fuentes* de dónde recolecta información y los sistemas *Data Mart* a los que envía la información procesada
+    - posibles Fuentes de información serían Sistemas (OLTP), aplicaciones en la nube, archivos físicos como CSV ó XLS, ..
+    - posibles Data Marts serían un Sistema de Ventas, Sistema de compras, ...
+    #+END_QUOTE
+** Diagramas
+*** Diagrama 1
+    #+NAME: middleware-detallado
+    [[file:assets/images/middleware.png]]
+** Referencias
+   #+BEGIN_COMMENT
+   Pendientes en validar
+   1. https://appmaster.io/es/blog/que-es-el-middleware
+   2. https://networkinterview.com/what-is-a-middleware/
+   3. http://mov-middleware.blogspot.com/2015/
+   4. https://www.tamps.cinvestav.mx/~vjsosa/clases/sd/Middleware_Recorrido.pdf (parece bueno)
+   #+END_COMMENT
+* TODO Referencias
+** Referencias de Universidades
+   1. [[http://www.jtech.ua.es/j2ee/publico/mens-2010-11/sesion01-apuntes.html][Introducción a JMS (Universidad de Alicante)]]
+   2. [[https://riunet.upv.es/bitstream/handle/10251/6408/Comunicaciones%20en%20los%20sistemas%20distribuidos.pdf][Sistemas de comunicaciones más utilizados en Control Distribuido (Universidad Politécnica de Valencia, Ing. Miguel Merlino)]]
+   3. [[https://www.colibri.udelar.edu.uy/jspui/bitstream/20.500.12008/21724/1/tm-merlino-miguel.pdf][Extensión especial de Middleware orientada a mensajeria (Universidad de la República Uruguay)]]
+   4. [[http://cs.uns.edu.ar/~sd/data/apuntes/SD-2019-mod%2003.pdf][Comunicación en Sistemas Distribuidos (Universidad Nacional del Sur, Argentina)]]
+   5. [[https://www.cartagena99.com/recursos/alumnos/apuntes/AED_fifo_lifo.pdf][Pilas LIFO y Colas LIFO (Universidad Politécnica de Madrid)]]
+** Referencias Destacadas
+   1. [[https://www.redhat.com/es/topics/integration][Concepto de integración empresarial (redhat.com)]]
+   2. [[https://www.sap.com/latinamerica/insights/enterprise-integration.html][Integración Empresarial (sap.com)]]
+   3. [[https://www.atlassian.com/es/microservices/microservices-architecture/distributed-architecture][Arquitectura de microservicios (atlassian.com)]]
+   4. [[https://aws.amazon.com/es/what-is/middleware/][¿Qué es un middleware? (aws.amazon.com)]]
+** TODO Referencias Youtube
+   #+BEGIN_COMMENT
+   Pendientes en validar
+   1. https://www.youtube.com/playlist?list=PLFHx3afTdaY0KR3h_NVjoWajr2OLRiqPv
+   #+END_COMMENT
+** Otras Referencias
+   1. [[https://sg.com.mx/revista/58/desarrollo-de-sistemas-distribuidos][Desarrollo de Sistemas Distribuidos (sg.com.mx)]]
+   2. [[https://tekla.io/blog/middleware-que-es/][Middleware, qué es y para qué sirve? (tekla.io)]]
+   3. [[https://www.programaenlinea.net/que-plataforma-tecnologica-es-mejor-java-vs-net/][Que plataforma es mejor java o net (programaenlinea.net)]]
+   4. [[https://www.cybermedian.com/es/enterprise-integration-patterns-eip-tutorial/][Enterprise INtegrration patterns tutorial (cybermedian.com)]]
+   5. [[https://medium.com/@maniakhitoccori/los-10-patrones-comunes-de-arquitectura-de-software-d8b9047edf0b][Los 10 patrones comunes de arquitectura de software (medium.com/@maniakhitoccori)]]
+** Issues
+   1. [[https://stackoverflow.com/questions/6574291/ems-esb-and-mom-jms][EMS, ESB, MOM and JMS (stackoverflow.com)]]
